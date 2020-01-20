@@ -10,6 +10,14 @@
  + 为购物车小图标添加如下样式`mui-icon mui-icon-extra mui-icon-extra-cart`
 3. 中间区域，用router-view来展示路由匹配的组件
 
+## 设置路由高亮
+
+## 制作首页轮播图布局
+
+## 加载数据
+1.获取数据，用vue-resource，需要安装：`cnpm i vue-resource -S`
+2.导入vue-resource，`import VueResource from 'vue-resource'   Vue.use(VueResource)`
+3.用`this.$http.get`请求接口
 
 ## 首页的九宫格布局
 + 使用mui中的 grid-default.html
