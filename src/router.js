@@ -5,8 +5,8 @@ import HomeContainer from './components/tabbars/HomeContainer.vue'
 import MemberContainer from './components/tabbars/MemberContainer.vue'
 import ShopcarContainer from './components/tabbars/ShopcarContainer.vue'
 import SearchContainer from './components/tabbars/SearchContainer.vue'
-// import NewsList from './components/news/NewsList.vue'
-// import NewsInfo from './components/news/NewsInfo.vue'
+import NewsList from './components/news/NewsList.vue'
+import NewsInfo from './components/news/NewsInfo.vue'
 // import PhotoList from './components/photos/PhotoList.vue'
 // import PhotoInfo from './components/photos/PhotoInfo.vue'
 // import GoodsList from './components/goods/GoodsList.vue'
@@ -22,8 +22,8 @@ const router = new VueRouter({
     { path: '/member', component: MemberContainer },
     { path: '/shopcar', component: ShopcarContainer },
     { path: '/search', component: SearchContainer },
-    // { path: '/home/newslist', component: NewsList },
-    // { path: '/home/newsinfo/:id', component: NewsInfo, props: true }, // 启用 props 来接收路由的参数
+    { path: '/home/newslist', component: NewsList },
+    { path: '/home/newsinfo/:id', component: NewsInfo, props: true }, // 启用 props 来接收路由的参数
     // { path: '/home/photolist', component: PhotoList },
     // { path: '/home/photoinfo/:id', component: PhotoInfo, props: true },
     // { path: '/home/goodslist', component: GoodsList },

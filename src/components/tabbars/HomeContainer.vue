@@ -65,6 +65,13 @@ export default {
       // 获取轮播图的方法--此时接口没有数据，所以我来写死数据
       // const { data } = await this.$http.get("http://vue.studyit.io/api/getlunbo");
       // if (data.status === 0) this.lunbotu = data.message;
+
+    //  const { data } = await this.$http.get("api/common/banners");
+    //  console.log("data----",data);
+    //   if (data.error_code === 0){
+    //     this.lunbotu = data.message;
+    //   } 
+       
     }
   },
   components: {
