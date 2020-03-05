@@ -10,8 +10,8 @@
   <!-- 评论列表区域 -->
   <div class="cmt-list">
     <div class="cmt-item" v-for="(item, i) in cmtlist" :key="i">
-      <div class="cmt-item-title">第{{ i+1 }}楼&nbsp;用户：{{ item.user_name }}&nbsp;发表时间：{{ item.add_time | dateFormat }}</div>
-      <div class="cmt-item-body">{{ item.content }}</div>
+      <div class="cmt-item-title">第{{ i+1 }}楼&nbsp;&nbsp;用户：{{ item.user_name }}&nbsp;发表时间：{{ item.add_time | dateFormat }}</div>
+      <div class="cmt-item-body">{{ item.content===undefined?'暂无评论':item.content }}</div>
     </div>
   </div>
 
@@ -29,7 +29,22 @@ export default {
   data() {
     return {
       page: 1, // 默认展示第一页的评论
-      cmtlist: [], // 评论数组
+      cmtlist: [{
+        user_name:'张三',
+        content:'哈哈，我说话了11',
+        add_time:'2020-03-05'
+      },
+      {
+        user_name:'张三2',
+        // content:'哈哈，我说话了222',
+        add_time:'2020-03-04'
+      },
+      {
+        user_name:'张三3',
+        content:'哈哈，我说话了333',
+        add_time:'2020-03-03'
+      }
+      ], // 评论数组
       msg: "" // 即将发表的评论内容
     };
   },
@@ -39,11 +54,17 @@ export default {
   methods: {
     async getCommentByPage() {
       // 根据页数来获取评论的数据
-      const { data } = await this.$http.get(
-        "/api/getcomments/" + this.newsid + "?pageindex=" + this.page
-      );
-      if (data.status === 0)
-        return (this.cmtlist = this.cmtlist.concat(data.message));
+      // const { data } = await this.$http.get(
+      //   "/api/getcomments/" + this.newsid + "?pageindex=" + this.page
+      // );
+      // if (data.status === 0)
+      //   return (this.cmtlist = this.cmtlist.concat(data.message));
+
+      this.cmtlist = this.cmtlist.concat([{//concat用于数组的拼接
+        user_name:'张三444',
+        content:'哈哈，我说话了444',
+         add_time: new Date(),
+      }]);
     },
     loadMore() {
       // 点击按钮，加载更多的评论

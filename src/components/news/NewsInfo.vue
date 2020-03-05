@@ -12,7 +12,7 @@
 
     <!-- 这里评论组件的位置 -->
     <!-- 父组件向子组件传值，通过 属性绑定的形式 -->
-    <!-- <comment :newsid="id"></comment> -->
+    <comment :newsid="id"></comment>
 
   </div>
 </template>
