@@ -44,16 +44,19 @@ export default {
       {id:4,title:'社会'},{id:5,title:'娱乐'},{id:7,title:'民生'}], // 所有的图片分类数据
       photolist: [
         {
+          id:1,
           title:'1111',
           img_url:'http://p3.pstatp.com/large/1af20005faf74a46dc10',
           zhaiyao:'摘要1111摘要1111摘要1111摘要1111摘要1111摘要1111'
         },
         {
+          id:2,
           title:'222',
           img_url:'http://p3.pstatp.com/large/1af50006289d5daeba38',
           zhaiyao:'摘要1111'
         },
         {
+           id:3,
           title:'333',
           img_url:'http://p1.pstatp.com/large/1af20005fbcb3471d9df',
           zhaiyao:'摘要1111'
@@ -76,6 +79,7 @@ export default {
       // }
     },
     async getPhotoByCategory(id) {
+      // console.log("123");
       // 根据图片分类的Id获取图片的数据
       // const { data } = await this.$http.get("/api/getimages/" + id);
       // if (data.status === 0) return (this.photolist = data.message);

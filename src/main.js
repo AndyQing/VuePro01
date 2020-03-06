@@ -40,6 +40,12 @@ import 'mint-ui/lib/style.css'
 // 使用 Vue.use 来批量注册 MintUI 的组件
 Vue.use(MintUI)
 
+//导入图片预览插件
+// import VuePreview from 'vue-preview'
+// Vue.use(VuePreview)
+import VuePreview from 'vue2-preview'
+Vue.use(VuePreview)
+
 var vm = new Vue({
   el: '#app',
   render: c => c(app),

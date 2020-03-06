@@ -7,12 +7,26 @@
       <span>点击：{{ photoinfo.click }}次</span>
     </p>
 
-    <hr>
+    <hr />
 
     <!-- 缩略图区域 -->
     <div class="thumb-img-list">
       <!-- 使用 v-for 循环渲染缩略图 -->
-      <img class="preview-img" v-for="(item, index) in photolist" :src="item.src" height="100" @click="$preview.open(index, photolist)" :key="index">
+      <!-- <img
+        class="preview-img"
+        v-for="(item, index) in photolist"
+        :src="item.src"
+        height="100"
+        @click="$preview.open(index, photolist)"
+        :key="index"
+      /> -->
+      <!-- 上面写法-点击事件中的"$preview"找不到了，换成vue2-preview框架，下面写法： -->
+      <vue-preview
+        :list="photolist"
+        :thumbImageStyle="{width: '80px', height: '80px', margin: '10px'}"
+        :previewBoxStyle="{border: '1px solid #eee'}"
+        :tapToClose="true"
+      />
     </div>
 
     <!-- 内容区域 -->
@@ -31,8 +45,28 @@ import comment from "../sub-components/Comment.vue";
 export default {
   data() {
     return {
-      photoinfo: {}, // 图片信息
-      photolist: [] // 缩略图的数组
+      photoinfo: {
+        click: "66",
+        title: "title111",
+        content: "内容巴啦啦"
+      }, // 图片信息
+      photolist: [
+        {
+          src: "http://p3.pstatp.com/large/1af20005faf74a46dc10",
+          w: 600,
+          h: 400
+        },
+        {
+          src: "http://p3.pstatp.com/large/1af50006289d5daeba38",
+          w: 600,
+          h: 400
+        },
+        {
+          src: "http://p1.pstatp.com/large/1af20005fbcb3471d9df",
+          w: 600,
+          h: 400
+        }
+      ] // 缩略图的数组
     };
   },
   created() {
@@ -42,26 +76,25 @@ export default {
   methods: {
     async getPhotoInfo() {
       // 当调用一个异步的方法，同时，这个异步方法的返回值是 Promise 对象的时候，才可以使用 await 和 async
-      const { data } = await this.$http.get("/api/getimageInfo/" + this.id);
-      if (data.status === 0) return (this.photoinfo = data.message[0]);
+      // const { data } = await this.$http.get("/api/getimageInfo/" + this.id);
+      // if (data.status === 0) return (this.photoinfo = data.message[0]);
     },
     async getThumbImg() {
       // 获取图片的缩略图数据
-      const { data } = await this.$http.get("/api/getthumimages/" + this.id);
-      if (data.status === 0) {
-        //  为 每一张图片设置 宽和高
-        data.message.forEach(item => {
-          item.w = 600;
-          item.h = 400;
-        });
-
-        this.photolist = data.message;
-      }
+      // const { data } = await this.$http.get("/api/getthumimages/" + this.id);
+      // if (data.status === 0) {
+      //   //  为 每一张图片设置 宽和高
+      //   data.message.forEach(item => {
+      //     item.w = 600;
+      //     item.h = 400;
+      //   });
+      //   this.photolist = data.message;
+      // }
     }
   },
   props: ["id"],
   components: {
-    comment
+    comment: comment //可以直接写成`components: {comment}`
   }
 };
 </script>

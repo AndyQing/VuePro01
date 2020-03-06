@@ -171,7 +171,7 @@
 
  ## 实现缩略图的效果
  1. 先加载所有的图片并显示到页面上；
- 2. 使用`vue-preview`插件来实现缩略图效果；
+ 2. 使用`vue-preview`插件来实现缩略图效果:`https://github.com/liulongbin1314/vue2-preview#readme`
  3. 如何使用缩略图组件呢：
   + 运行`cnpm i vue-preview -S`安装
   + 在 全局的配置文件`globalConfig.js`中，安装此组件：
