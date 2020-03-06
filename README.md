@@ -118,7 +118,7 @@
  
 
 ## 当在项目中引入了MUI的JS文件报错的问题：
-> 报错信息：Uncaught TypeError: 'caller', 'callee', and 'arguments' properties may not be accessed on strict mode functions or the arguments objects for calls to them
+> 报错信息：`Uncaught TypeError: 'caller', 'callee', and 'arguments' properties may not be accessed on strict mode functions or the arguments objects for calls to them`
 1. 分析问题的原因：
  + webpack 打包出来的  bundle.js 中，默认启用了严格模式
  + 在项目中，import 导入的 mui.js 中，使用了 callee caller 这些特性， 但是这些特性在严格模式中不支持，会报错；
@@ -134,8 +134,8 @@
 1. 为 `mui-slider` 类样式，添加，`touch-action: pan-x;`属性样式，从而支持 此元素的 单指水平滑动效果，提高滑动的流畅度；
 
 ## 解决 tabbar 区域 和 图片分类列表JS行为冲突的问题
-1. 冲突的原因：每一个tabbar 按钮的 类样式`mui--tab-item`和JS行为有冲突；
-2. 解决的思路：把所有和 `mui-tab-item`相关的样式粘出来，然后改个类名，重新把自己的类名，替换掉之前的即可
+1. 冲突的原因：每一个tabbar 按钮的 类样式`mui-tab-item`和JS行为有冲突；
+2. 解决的思路：把所有和 `mui-tab-item`相关的样式粘出来，然后改个类名，项目中我改成了`my-tab-item`，重新用新的类名，替换掉之前的样式即可
 
 ## 获取图片分类数据并加载到页面上
 1. 获取分类数据

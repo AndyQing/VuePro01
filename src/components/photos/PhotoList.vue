@@ -35,13 +35,30 @@
 
 <script>
 // 导入 mui 的JS文件， 这样，就可以使用 mui 来初始化 滑动控件了
-import mui from "../../../lib/mui/js/mui.js";
+import mui from "../../lib/mui/js/mui.js";
 
 export default {
   data() {
     return {
-      category: [], // 所有的图片分类数据
-      photolist: [] // 图片列表
+      category: [{id:0,title:'全部'},{id:1,title:'推荐'},{id:2,title:'热点'},{id:3,title:'北京'},
+      {id:4,title:'社会'},{id:5,title:'娱乐'},{id:7,title:'民生'}], // 所有的图片分类数据
+      photolist: [
+        {
+          title:'1111',
+          img_url:'http://p3.pstatp.com/large/1af20005faf74a46dc10',
+          zhaiyao:'摘要1111摘要1111摘要1111摘要1111摘要1111摘要1111'
+        },
+        {
+          title:'222',
+          img_url:'http://p3.pstatp.com/large/1af50006289d5daeba38',
+          zhaiyao:'摘要1111'
+        },
+        {
+          title:'333',
+          img_url:'http://p1.pstatp.com/large/1af20005fbcb3471d9df',
+          zhaiyao:'摘要1111'
+        },
+      ] // 图片列表
     };
   },
   created() {
@@ -51,17 +68,17 @@ export default {
   methods: {
     async getPhotoCategory() {
       // 获取图片的分类数据
-      const { data } = await this.$http.get("/api/getimgcategory");
-      if (data.status === 0) {
-        // 手动补全分类的信息
-        data.message.unshift({ title: "全部", id: 0 });
-        this.category = data.message;
-      }
+      // const { data } = await this.$http.get("/api/getimgcategory");
+      // if (data.status === 0) {
+      //   // 手动补全分类的信息
+      //   data.message.unshift({ title: "全部", id: 0 });
+      //   this.category = data.message;
+      // }
     },
     async getPhotoByCategory(id) {
       // 根据图片分类的Id获取图片的数据
-      const { data } = await this.$http.get("/api/getimages/" + id);
-      if (data.status === 0) return (this.photolist = data.message);
+      // const { data } = await this.$http.get("/api/getimages/" + id);
+      // if (data.status === 0) return (this.photolist = data.message);
     }
   },
   mounted() {
@@ -75,7 +92,7 @@ export default {
 
 <style lang="scss" scoped>
 .mui-slider {
-  touch-action: pan-x;
+  touch-action: pan-x;//为了去除头部横向滑动时的警告
 }
 
 .lazyul {
@@ -92,7 +109,7 @@ export default {
       margin-top: 10px;
     }
     img {
-      vertical-align: middle;
+      vertical-align: middle;//解决图片下有3像素的问题
       width: 100%;
     }
     img[lazy="loading"] {
@@ -106,17 +123,18 @@ export default {
 .info {
   position: absolute;
   bottom: 0;
+  width: 100%;
   color: #fff;
   background-color: rgba(0, 0, 0, 0.5);
   max-height: 86px;
   overflow: hidden;
+  text-align: left;
+  padding: 0 5px;
   .info-title {
     font-size: 14px;
   }
   .info-content {
     font-size: 13px;
-    text-align: left;
-    text-indent: 2em;
   }
 }
 </style>
