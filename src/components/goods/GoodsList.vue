@@ -1,11 +1,15 @@
 <template>
   <div>
-    
     <!-- 商品列表区域 -->
     <div class="goods-list">
-
-      <router-link tag="div" :to="'/home/goodsinfo/' + item.id" class="goods-item" v-for="item in goodslist" :key="item.id">
-        <img :src="item.img_url" alt="">
+      <router-link
+        tag="div"
+        :to="'/home/goodsinfo/' + item.id"
+        class="goods-item"
+        v-for="item in goodslist"
+        :key="item.id"
+      >
+        <img :src="item.img_url" alt />
         <h1 class="title">{{ item.title }}</h1>
         <div class="info">
           <p class="price">
@@ -19,10 +23,8 @@
         </div>
       </router-link>
 
-
       <mt-button type="danger" size="large" style="margin-top: 10px;" @click="getMore">加载更多</mt-button>
     </div>
-
   </div>
 </template>
 
@@ -31,7 +33,29 @@ export default {
   data() {
     return {
       page: 1, // 默认展示第一页的数据
-      goodslist: [], // 商品列表
+      goodslist: [
+        {
+          title: "商品1",
+          img_url:'http://p3.pstatp.com/large/1af50006289d5daeba38',
+          sell_price: 12,
+          market_price: 14,
+          stock_quantity:8,
+        },
+        {
+          title: "商品2商品2商品2商品2商品2商品2商品2商品2商品2商品2商品2商品2",
+          img_url:'http://p3.pstatp.com/large/1af50006289d5daeba38',
+          sell_price: 12,
+          market_price: 14,
+          stock_quantity:8,
+        },
+        {
+          title: "商品1",
+          img_url:'http://p3.pstatp.com/large/1af50006289d5daeba38',
+          sell_price: 12,
+          market_price: 14,
+          stock_quantity:8,
+        }
+      ], // 商品列表
       isloaded: false // 节流阀，默认为false,表示没有加载完毕
     };
   },
@@ -41,17 +65,17 @@ export default {
   methods: {
     async getGoodsListByPage() {
       // 根据页码获取 商品列表
-      const { data } = await this.$http.get(
-        "/api/getgoods?pageindex=" + this.page
-      );
-      if (data.status === 0) {
-        // 当获取到的 数组长度为0，表示数据已经加载完毕了
-        if (data.message.length <= 0) {
-          // 设置isloaded true,表示没有新数据了
-          this.isloaded = true;
-        }
-        this.goodslist = this.goodslist.concat(data.message);
-      }
+      // const { data } = await this.$http.get(
+      //   "/api/getgoods?pageindex=" + this.page
+      // );
+      // if (data.status === 0) {
+      //   // 当获取到的 数组长度为0，表示数据已经加载完毕了
+      //   if (data.message.length <= 0) {
+      //     // 设置isloaded true,表示没有新数据了
+      //     this.isloaded = true;
+      //   }
+      //   this.goodslist = this.goodslist.concat(data.message);
+      // }
     },
     getMore() {
       // 如果为true，表示数据已经加载完毕了，此时直接return
@@ -78,6 +102,7 @@ export default {
     border: 1px solid #ccc;
     margin-top: 7px;
     box-shadow: 0 0 7px #ccc;
+    background: white;
     padding: 2px;
     display: flex;
     flex-direction: column;

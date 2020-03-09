@@ -5,6 +5,7 @@
     <div id="slider" class="mui-slider">
 				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 					<div class="mui-scroll">
+            <!-- 为了修改手机端不能切换的问题，@click改成@tap，@tap也只能在mui中用到 -->
 						<span 
 							:class="['mui-control-item', item.id === 0 ? 'mui-active' : '' ]" 
 							v-for="item in category" 
