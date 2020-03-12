@@ -2,13 +2,16 @@
   <div>
     <!-- 商品列表区域 -->
     <div class="goods-list">
-      <router-link
+      <!-- 编程式导航：用js代码方式跳转页面: -->
+      <div @click="goDetail(item.id)" class="goods-item" v-for="item in goodslist" :key="item.id">
+        <!-- 标签跳转：用router-link跳转页面: -->
+        <!-- <router-link
         tag="div"
         :to="'/home/goodsinfo/' + item.id"
         class="goods-item"
         v-for="item in goodslist"
         :key="item.id"
-      >
+        >-->
         <img :src="item.img_url" alt />
         <h1 class="title">{{ item.title }}</h1>
         <div class="info">
@@ -21,7 +24,8 @@
             <span>剩{{ item.stock_quantity }}件</span>
           </p>
         </div>
-      </router-link>
+        <!-- </router-link> -->
+      </div>
 
       <mt-button type="danger" size="large" style="margin-top: 10px;" @click="getMore">加载更多</mt-button>
     </div>
@@ -35,25 +39,28 @@ export default {
       page: 1, // 默认展示第一页的数据
       goodslist: [
         {
+          id: 12,
           title: "商品1",
-          img_url:'http://p3.pstatp.com/large/1af50006289d5daeba38',
+          img_url: "http://p3.pstatp.com/large/1af50006289d5daeba38",
           sell_price: 12,
           market_price: 14,
-          stock_quantity:8,
+          stock_quantity: 8
         },
         {
+          id: 13,
           title: "商品2商品2商品2商品2商品2商品2商品2商品2商品2商品2商品2商品2",
-          img_url:'http://p3.pstatp.com/large/1af50006289d5daeba38',
+          img_url: "http://p3.pstatp.com/large/1af50006289d5daeba38",
           sell_price: 12,
           market_price: 14,
-          stock_quantity:8,
+          stock_quantity: 8
         },
         {
+          id: 14,
           title: "商品1",
-          img_url:'http://p3.pstatp.com/large/1af50006289d5daeba38',
+          img_url: "http://p3.pstatp.com/large/1af50006289d5daeba38",
           sell_price: 12,
           market_price: 14,
-          stock_quantity:8,
+          stock_quantity: 8
         }
       ], // 商品列表
       isloaded: false // 节流阀，默认为false,表示没有加载完毕
@@ -83,6 +90,18 @@ export default {
       // 点击加载更多的商品
       this.page++;
       this.getGoodsListByPage();
+    },
+    goDetail(id) {
+      console.log("this====", this);
+      // 编程式导航的几种方法：
+      //1、最简单写法
+      // this.$router.push('/home/goodsinfo/'+id);
+      //2、传递对象
+      this.$router.push({ path: "/home/goodsinfo/" + id });
+      //3、传递命名的路由
+      // 此时的name: "goodsinfo"匹配rooter.js中的name对应的路由
+      // this.$router.push({ name: "goodsinfo", param: { id } });
+      //注意，如果提供了path，则params会被忽略
     }
   }
 };

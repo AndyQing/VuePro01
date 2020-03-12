@@ -28,6 +28,7 @@ export default {
       width: 100%;
       height: 100%;
       overflow: hidden;
+      object-fit: cover;//是根据图片宽和高的最小值进行缩放然后裁剪
     }
     .img-normal {
       // 如果给图片添加了这个类，则图片的高度 100%， 宽度是 自适应，横向的位置是居中显示

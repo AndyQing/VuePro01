@@ -9,7 +9,7 @@
 
 <script>
 // 导入 mui 从而支持 初始化 数字框
-import mui from "../../../lib/mui/js/mui.js";
+import mui from "../../lib/mui/js/mui.js";
 import { mapMutations } from "vuex";
 
 export default {
