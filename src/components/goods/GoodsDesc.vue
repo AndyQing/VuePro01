@@ -1,7 +1,7 @@
 <template>
   <div class="goodsdesc-container">
     <h3 class="title">{{ info.title }}</h3>
-    <hr>
+    <hr />
     <div class="content" v-html="info.content"></div>
   </div>
 </template>
@@ -10,7 +10,10 @@
 export default {
   data() {
     return {
-      info: {} // 商品的描述信息
+      info: {
+        title: "title巴拉巴拉",
+        content: "<p>neirongbhahhahaha</p>"
+      } // 商品的描述信息
     };
   },
   created() {
@@ -18,8 +21,8 @@ export default {
   },
   methods: {
     async getGoodsDesc() {
-      const { data } = await this.$http.get("/api/goods/getdesc/" + this.id);
-      if (data.status === 0) return (this.info = data.message[0]);
+      // const { data } = await this.$http.get("/api/goods/getdesc/" + this.id);
+      // if (data.status === 0) return (this.info = data.message[0]);
     }
   },
   props: ["id"]
