@@ -3,7 +3,7 @@
     <!-- 要实现动画的小球 -->
     <!-- 注意：钩子函数动画，这些钩子函数，都是通过事件绑定机制，绑定到 transition 元素上的 -->
     <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
-      <div class="ball" v-show="flag"></div>
+      <div class="ball" v-show="flag" ref="ball"></div>
     </transition>
 
     <!-- 轮播图区域 -->
@@ -33,10 +33,11 @@
           <p>
             购买数量：
             <!-- 注意： 这里 的 max 是库存量 -->
-            <!-- 由于 goodsinfo 是通过 Ajax 动态获取回来的，但是，Ajax 是异步请求，需要消耗时间 -->
-            <!-- 因此，可能会导致这样的情况： bobox 组件 先于 Ajax 渲染出来，此时， 组件被渲染的时候， goodsinfo 为 空对象，因此，传递到子组件中的 stock_quantity 是 undefined；  -->
-            <!-- <nobox :max="goodsinfo.stock_quantity" @func="getSelectedCount"></nobox> -->
-            <nobox :max="6"></nobox>
+            <!-- 问题：由于 goodsinfo 是通过 Ajax 动态获取回来的，但是，Ajax 是异步请求，需要消耗时间 
+            因此，可能会导致这样的情况： bobox 组件 先于 Ajax 渲染出来，此时， 组件被渲染的时候， goodsinfo 为 空对象，
+            因此，传递到子组件中的 stock_quantity 是 undefined； 
+            解决方法：用watch属性监听来解决-->
+            <nobox :max="goodsinfo.stock_quantity" @func="getSelectedCount"></nobox>
           </p>
           <div>
             <mt-button type="primary" size="small">立即购买</mt-button>
@@ -95,7 +96,7 @@ export default {
         id: 12,
         title: "我是一个商品标题",
         goods_no: "GOODNO1001",
-        stock_quantity: "123",
+        stock_quantity: 10,
         market_price: 14,
         sell_price: 12
       }, // 商品的详情
@@ -144,12 +145,12 @@ export default {
         count: this.selectedCount
       }); */
       // 直接调用 mapMutaions 中映射出来的方法
-      this.addToCar({
-        id: this.id,
-        count: this.selectedCount,
-        selected: true,
-        price: this.goodsinfo.sell_price
-      });
+      // this.addToCar({
+      //   id: this.id,
+      //   count: this.selectedCount,
+      //   selected: true,
+      //   price: this.goodsinfo.sell_price
+      // });
     },
     beforeEnter(el) {
       // 入场动画开始之前，设置小球的起始状态
@@ -163,16 +164,19 @@ export default {
       el.offsetWidth;
       // 设置小球的入场动画终止状态
 
+      // el.style.transform = "translate(93px, 230px)";
+
       // 动态获取小球的横纵坐标
-      const ballPos = el.getBoundingClientRect();
+      // const ballPos = this.$refs.ball.getBoundingClientRect();//方式1
+      const ballPos = el.getBoundingClientRect(); //方式2
       // 动态获取徽标的横纵坐标【注意：这里获取徽标的位置，和双向数据绑定没有任何关系，所以，可以直接使用普通的DOM操作】
       // DOM操作的优势：不论要操作的元素属于哪个组件，只要这个元素属于document，那么就能够直接获取到
       const badgePos = document.getElementById("badge").getBoundingClientRect();
       const left = badgePos.left - ballPos.left;
       const top = badgePos.top - ballPos.top;
-
       // 动态设置 top 和 left 值
       el.style.transform = "translate(" + left + "px, " + top + "px)";
+
       // 设置小球的过渡效果
       // 贝塞尔曲线在线生成器： http://cubic-bezier.com/#.46,-0.4,1,.49
       el.style.transition = "all .5s cubic-bezier(.46,-0.4,1,.49)";

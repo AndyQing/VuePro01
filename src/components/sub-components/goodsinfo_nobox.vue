@@ -21,9 +21,11 @@ export default {
     mui(".mui-numbox").numbox();
   },
   methods: {
-    countChanged() {
+    countChanged(e) {
+      console.log("e----",e.target.value);
       // 获取选择的商品数量
-      const val = this.$refs.nobox.value;
+      // const val = this.$refs.nobox.value;//方式1
+      const val = e.target.value;//方式2
       // 每当 nobox 子组件中的 count 变化之后，要立即把 最新的数量值，传递给goodsinfo父组件， 这样，每当我们点击 【加入购物车】按钮时候，就能立即把 最新的 count 值，同步到 购物车的徽标中
       // 这样就涉及到了父子组件传值，子组件向父组件传递数据
       this.$emit("func", parseInt(val));
