@@ -217,3 +217,26 @@
 2. 让轮播图组件，提供一个 `isfull` 属性，表示是否撑满父元素；
  + 如果为true,表示，宽和高都要是 100%
  + 如果为 false，表示，宽是 自适应，高度是100%，同时图片居中显示
+
+## Vuex的学习
+Vuex 是为了组建之间共享数据而诞生的，相当于一个数据仓库。
+安装:`cnpm i vuex -S`
+```
+import Vuex from 'vuex'
+Vue.use(Vuex)
+var store = new Vuex.Store({
+  state: {},
+  mutations: {},
+  getters: {}
+})
+var vm = new Vue({
+  el: '#app',
+  render: c => c(app),
+  store,//挂载到vm上
+})
+```
+总结：
+1. state中的数据不能直接修改，如果想要修改，必须通过 mutations
+2. 想要直接访问store中的state数据，只能通过`this.$store.state.***`来访问
+3. 如果要操作store中的state值，只能通过调用mutations 提供的方法  `this.$store.commit('方法名')`
+4. 如果想要store中的state数据，且需要做一层包装的，推荐使用getters：`this.$store.getters.***`
