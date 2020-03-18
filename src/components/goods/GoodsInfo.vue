@@ -144,6 +144,7 @@ export default {
         id: this.id,
         count: this.selectedCount,
         selected: true,
+        title:this.goodsinfo.title,
         price: this.goodsinfo.sell_price
       };
       // 调用 store 中的 mutations 来将商品加入购物车
