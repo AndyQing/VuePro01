@@ -1,6 +1,10 @@
 <template>
   <div class="app-container">
-    <mt-header fixed title="Vue项目实战"></mt-header>
+    <mt-header fixed title="Vue项目实战">
+      <span slot="left" @click="goBack" v-show="flag">
+        <mt-button icon="back">返回</mt-button>
+      </span>
+    </mt-header>
     <!-- 路由的容器坑 -->
     <transition>
       <router-view></router-view>
@@ -30,16 +34,40 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      flag: false
+    };
+  },
+  created() {
+    this.flag = this.$route.path === "/home" ? false : true;
+  },
+  methods: {
+    goBack() {
+      // 点击后退
+      this.$router.go(-1);
+    }
+  },
+  watch: {
+    "$route.path": function(newVal) {
+      if (newVal === "/home") {
+        this.flag = false;
+      } else {
+        this.flag = true;
+      }
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-.mint-header{
+.mint-header {
   z-index: 10;
 }
-.app-container{
-  padding-top:40px;
-   padding-bottom: 50px;
+.app-container {
+  padding-top: 40px;
+  padding-bottom: 50px;
   // 当有组件切换动效的时候，一瞬间，页面的宽度会变成 正常宽度的 2 倍，此时，需要隐藏超出屏幕宽度的区域
   overflow: hidden;
 }
