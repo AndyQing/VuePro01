@@ -139,11 +139,16 @@ export default {
     addToCart() {
       // 点击加入购物车
       this.flag = !this.flag;
-      // 调用 mutations 中的 addToCar
-      /* this.$store.commit("addToCar", {
+
+      var goodinfo = {
         id: this.id,
-        count: this.selectedCount
-      }); */
+        count: this.selectedCount,
+        selected: true,
+        price: this.goodsinfo.sell_price
+      };
+      // 调用 store 中的 mutations 来将商品加入购物车
+      this.$store.commit("addToCar", goodinfo);
+
       // 直接调用 mapMutaions 中映射出来的方法
       // this.addToCar({
       //   id: this.id,

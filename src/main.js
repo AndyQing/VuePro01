@@ -53,12 +53,14 @@ Vue.use(VuePreview)
 import Vuex from 'vuex'
 //5.2注册vuex到Vue中
 Vue.use(Vuex)
+// 每次刚进入 网站，肯定会 调用 main.js 在刚调用的时候，先从本地存储中，把 购物车的数据读出来，放到 store 中
+var car = JSON.parse(localStorage.getItem('car') || '[]')
 //5.3 new Vuex.Store()实例，得到一个数据仓储对象
 var store = new Vuex.Store({
   state: {
     // 如果想要访问store中的数据，只能通过 this.$store.state.*** 来访问
     count: 2,
-    car: [],//购物车商品数据，咱们可以暂时将这个商品对象，设计成这个样子   
+    car: car,//购物车商品数据，咱们可以暂时将这个商品对象，设计成这个样子   
     // { id:商品的id, count: 要购买的数量, price: 商品的单价，selected: false  }
   },
   mutations: {
@@ -69,16 +71,51 @@ var store = new Vuex.Store({
     },
     increment2(state, num) {
       state.count += num
-    }
+    },
     // 如果子组件想要调用mutations中的方法，只能使用 this.$store.commit('方法名')
     // 注意：mutations中的方法最多有两个参数
+
+
+    addToCar(state, goodsinfo) {
+      // 点击加入购物车，把商品信息，保存到 store 中的 car 上
+      // 分析：
+      // 1. 如果购物车中，之前就已经有这个对应的商品了，那么，只需要更新数量
+      // 2. 如果没有，则直接把 商品数据，push 到 car 中即可
+
+      // 假设 在购物车中，没有找到对应的商品
+      var flag = false
+
+      state.car.some(item => {
+        if (item.id == goodsinfo.id) {
+          item.count += parseInt(goodsinfo.count)
+          flag = true
+          return true
+        }
+      })
+
+      // 如果最终，循环完毕，得到的 flag 还是 false，则把商品数据直接 push 到 购物车中
+      if (!flag) {
+        state.car.push(goodsinfo)
+      }
+
+      // 当 更新 car 之后，把 car 数组，存储到 本地的 localStorage 中
+      localStorage.setItem('car', JSON.stringify(state.car))
+    },
   },
   getters: {
     //getters只负责对外提供数据，不负责修改数据，请用mutations中的方法修改数据
     optCount: function (state) {
       return '当前最新count值是:' + state.count
       //与过滤器相似，对数据进行了包装，然后提供给了调用者
-    }
+    },
+
+    getAllCount(state) {
+      var c = 0;
+      state.car.forEach(item => {
+        c += item.count
+      })
+      return c
+    },
   }
 })
 
